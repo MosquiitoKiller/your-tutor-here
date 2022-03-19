@@ -1,21 +1,21 @@
 package com.example.yourtutorhere.entities;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Document("user2")
 public class User implements UserDetails {
     @Id
-    private Long id;
-
+    ObjectId id= ObjectId.get();
     private String firstName;
     private String middleName;
     private String lastName;
@@ -56,12 +56,13 @@ public class User implements UserDetails {
         this.viber = viber;
         this.mail = mail;
         this.password = password;
+        roles = new ArrayList<>();
+        roles.add("ROLE_USER");
     }
 
-    @ManyToMany(fetch= FetchType.EAGER)
-    private List<Role> roles;
+    private List<String> roles;
 
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
@@ -111,7 +112,14 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+
+        List<GrantedAuthority> authorities
+                = new ArrayList<>();
+        for (String role: roles) {
+            authorities.add(new SimpleGrantedAuthority(role));
+        }
+
+        return authorities;
     }
 
     @Override
@@ -119,6 +127,9 @@ public class User implements UserDetails {
         return password;
     }
 
+    public void setPassword(String password){
+        this.password = password;
+    }
     @Override
     public String getUsername() {
         return getMail();
@@ -144,7 +155,7 @@ public class User implements UserDetails {
         return true;
     }
 
-    public List<Role> getRoles() {
+    public List<String> getRoles() {
         return roles;
     }
 }
