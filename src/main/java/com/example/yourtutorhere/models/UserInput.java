@@ -1,4 +1,4 @@
-package com.example.yourtutorhere.entities;
+package com.example.yourtutorhere.models;
 
 import java.util.Date;
 

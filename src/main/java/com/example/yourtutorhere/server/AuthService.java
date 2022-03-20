@@ -2,9 +2,9 @@ package com.example.yourtutorhere.server;
 
 
 import com.example.yourtutorhere.config.JWTUtil;
-import com.example.yourtutorhere.entities.LoginInput;
+import com.example.yourtutorhere.models.LoginInput;
 import com.example.yourtutorhere.entities.User;
-import com.example.yourtutorhere.entities.UserInput;
+import com.example.yourtutorhere.models.UserInput;
 import com.example.yourtutorhere.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

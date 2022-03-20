@@ -1,9 +1,9 @@
 package com.example.yourtutorhere.controller;
 
 
-import com.example.yourtutorhere.entities.LoginInput;
+import com.example.yourtutorhere.models.LoginInput;
 import com.example.yourtutorhere.entities.User;
-import com.example.yourtutorhere.entities.UserInput;
+import com.example.yourtutorhere.models.UserInput;
 import com.example.yourtutorhere.server.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
