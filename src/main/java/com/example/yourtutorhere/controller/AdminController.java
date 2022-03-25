@@ -1,12 +1,32 @@
 package com.example.yourtutorhere.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.yourtutorhere.entities.User;
+import com.example.yourtutorhere.models.ChangeUserModel;
+import com.example.yourtutorhere.server.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("/admin")
 public class AdminController {
-    @GetMapping("/admin/1")
+    @Autowired
+    private AdminService adminService;
+
+    @GetMapping("/1")
     String getUserInfo() {
         return "I am ADMIN";
+    }
+
+    @GetMapping("/users")
+    List<User> getAllUsers(){
+        return adminService.getAll();
+    }
+
+    @PatchMapping("/users")
+    User changeUser(@RequestBody ChangeUserModel userModel){
+        System.out.println(userModel.getMail());
+        return adminService.changeUser(userModel);
     }
 }

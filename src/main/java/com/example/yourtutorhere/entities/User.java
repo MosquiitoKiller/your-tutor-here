@@ -28,6 +28,7 @@ public class User implements UserDetails {
     private boolean viber;
     private String mail;
     private String password;
+    private List<String> roles;
 
     public User() {
     }
@@ -60,7 +61,53 @@ public class User implements UserDetails {
         roles.add("ROLE_USER");
     }
 
-    private List<String> roles;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setTelegram(boolean telegram) {
+        this.telegram = telegram;
+    }
+
+    public void setWhatsApp(boolean whatsApp) {
+        this.whatsApp = whatsApp;
+    }
+
+    public void setViber(boolean viber) {
+        this.viber = viber;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
 
     public ObjectId getId() {
         return id;
