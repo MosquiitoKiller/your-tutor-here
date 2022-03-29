@@ -2,6 +2,8 @@ package com.example.yourtutorhere.server;
 
 
 import com.example.yourtutorhere.config.JWTUtil;
+import com.example.yourtutorhere.entities.Role;
+import com.example.yourtutorhere.entities.UserInfo;
 import com.example.yourtutorhere.models.LoginInput;
 import com.example.yourtutorhere.entities.User;
 import com.example.yourtutorhere.models.UserInput;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.MessageFormat;
+import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -28,17 +31,19 @@ public class AuthService implements UserDetailsService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByMail(username).orElseThrow(() -> new UsernameNotFoundException(MessageFormat.format("com.example.demo.User.User with email {0} cannot be found.", username)));
+        return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException(MessageFormat.format("com.example.demo.User.User with email {0} cannot be found.", username)));
     }
 
     public User register(UserInput user){
-        User user2 = new User(user.getFirstName(),user.getMiddleName(),user.getLastName(),user.getDateOfBirth(),user.getCountry(),user.getTown(),user.getPhone(),user.isTelegram(),user.isWhatsApp(),user.isViber(),user.getMail(),user.getPassword());
+        UserInfo userInfo = new UserInfo(user.getFirstName(),user.getMiddleName(),user.getLastName(),user.getAge(),user.getPhone(),user.getTown(),user.getDateOfBirth(),user.isViber(),user.isTelegram(),user.isWhatsApp());
+        User user2 = new User(user.getEmail(),user.getPassword(),userInfo);
+        user2.setRoles(Collections.singletonList(Role.ROLE_USER));
         String cryptedPassword = bCryptPasswordEncoder.encode(user2.getPassword());
         user2.setPassword(cryptedPassword);
         return userRepository.save(user2);
     }
     public ResponseEntity<String> login (LoginInput loginInput){
-        Optional<User> user = userRepository.findByMail(loginInput.getEmail());
+        Optional<User> user = userRepository.findByEmail(loginInput.getEmail());
         if(user.isPresent()){
             if (bCryptPasswordEncoder.matches(loginInput.getPassword(), user.get().getPassword())) {
                 String token = jwtUtil.generateToken(loginInput.getEmail());
