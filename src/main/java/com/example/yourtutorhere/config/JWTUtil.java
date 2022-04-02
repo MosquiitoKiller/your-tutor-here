@@ -22,18 +22,17 @@ public class JWTUtil {
                 .withSubject("User Details")
                 .withClaim("email", email)
                 .withIssuedAt(new Date())
-                .withIssuer("YOUR APPLICATION/PROJECT/COMPANY NAME")
+                .withIssuer("NIOBIUM")
                 .sign(Algorithm.HMAC256(secret));
     }
 
     public String validateTokenAndRetrieveSubject(String token)throws JWTVerificationException {
         JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret))
                 .withSubject("User Details")
-                .withIssuer("YOUR APPLICATION/PROJECT/COMPANY NAME")
+                .withIssuer("NIOBIUM")
                 .build();
         DecodedJWT jwt = verifier.verify(token);
         return jwt.getClaim("email").asString();
     }
 
 }
-

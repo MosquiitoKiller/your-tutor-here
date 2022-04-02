@@ -29,12 +29,14 @@ public class User implements UserDetails {
     private String password;
     private UserInfo userInfo;
     private List<Role> roles;
-
+    private Teacher teacher;
+    private List<Request> requestList;
 
     public User(String email, String password, UserInfo userInfo) {
         this.email = email;
         this.password = password;
         this.userInfo = userInfo;
+        requestList = new ArrayList<>();
     }
 
 

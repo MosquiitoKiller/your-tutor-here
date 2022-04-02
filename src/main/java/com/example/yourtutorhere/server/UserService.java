@@ -6,6 +6,7 @@ import com.example.yourtutorhere.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,11 @@ public class UserService  {
         return userRepository.findAll();
     }
 
+    public User getCurrentUser(){
+        return findByEmail(String.valueOf(SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
+    }
 
+    public void save(User user){
+        userRepository.save(user);
+    }
 }

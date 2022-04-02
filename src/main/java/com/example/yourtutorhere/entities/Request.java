@@ -15,17 +15,23 @@ import java.io.Serializable;
 public class Request implements Serializable {
 
     @Id
-    private ObjectId id =ObjectId.get();
+    private ObjectId id = ObjectId.get();
     private String text;
     private String date;
-    private UserInfo userInfo;
     private boolean learnInHome;
     private boolean learnInStudent;
     private boolean remote;
 
-    private String country;
-    private String city;
-    private String object;
+    private String town;
+    private String subject;
 
+    public Request(String text, String date, boolean learnInHome, boolean learnInStudent, boolean remote, String town, String subject) {
+        this.text = text;
+        this.date = date;
+        this.learnInHome = learnInHome;
+        this.learnInStudent = learnInStudent;
+        this.remote = remote;
+        this.town = town;
+        this.subject = subject;
+    }
 }
-

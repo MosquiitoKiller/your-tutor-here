@@ -2,11 +2,6 @@ package com.example.yourtutorhere.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.security.core.userdetails.UserDetails;
-
-
-import java.util.Date;
-
 
 @Data
 @AllArgsConstructor

@@ -26,7 +26,6 @@ public class AdminController {
 
     @PatchMapping("/users")
     User changeUser(@RequestBody ChangeUserModel userModel){
-        System.out.println(userModel.getMail());
         return adminService.changeUser(userModel);
     }
 }

@@ -19,4 +19,6 @@ public class UserInput {
     private String email;
     private String password;
 
+    private boolean teacher;
+    private TeacherInput teacherInput;
 }
