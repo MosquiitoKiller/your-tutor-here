@@ -7,15 +7,15 @@ const TeacherCard = (props) => {
 
     return(
         <div className='teacher_card'>
-            <h5>{props.img}</h5>
-            <h5>{props.firstname}</h5>
-            <h5>{props.lastname}</h5>
-            <h5>{props.middlename}</h5>
-            <h5>{props.age}</h5>
-            <h5>{props.town}</h5>
-            <h5>{props.education}</h5>
-            <h5>{props.subject}</h5>
-            <Button className="btn btn-success" onClick={() => navigate("/teachers/"+teacher.id,{teacher})}>Подробнее</Button>
+            <h5>{props.teacher.teacher.img}</h5>
+            <h5>{props.teacher.userInfo.firstName}</h5>
+            <h5>{props.teacher.userInfo.lastName}</h5>
+            <h5>{props.teacher.userInfo.middleName}</h5>
+            <h5>{props.teacher.userInfo.age}</h5>
+            <h5>{props.teacher.userInfo.town}</h5>
+            <h5>{props.teacher.teacher.education}</h5>
+            <h5>{props.teacher.teacher.subject}</h5>
+            <Button className="btn btn-success" onClick={() => navigate("/teachers/"+props.teacher.id,{props})}>Подробнее</Button>
         </div>
     )
 }

@@ -32,6 +32,8 @@ public class AuthService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private CloudinaryService cloudinaryService;
+    @Autowired
     private TeacherRepository teacherRepository;
     @Autowired private JWTUtil jwtUtil;
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
@@ -47,7 +49,6 @@ public class AuthService implements UserDetailsService {
                 userInput.getAge(),
                 userInput.getPhone(),
                 userInput.getTown(),
-                userInput.getDateOfBirth(),
                 userInput.isViber(),
                 userInput.isTelegram(),
                 userInput.isWhatsApp());
@@ -60,7 +61,7 @@ public class AuthService implements UserDetailsService {
                     userInput.getTeacherInput().getEducation(),
                     userInput.getTeacherInput().getSubject(),
                     userInput.getTeacherInput().getPrice(),
-                    userInput.getTeacherInput().getImg(),
+                    cloudinaryService.uploadFile(userInput.getTeacherInput().getImg()),
                     userInput.getTeacherInput().getAboutTeacher());
             teacherRepository.save(teacher);
             user.setTeacher(teacher);

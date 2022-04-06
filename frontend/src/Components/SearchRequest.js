@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Button, Col, Container, Row, Stack} from "react-bootstrap";
 import TeacherCard from "./TeacherCard";
+import RequestCard from "./RequestCard";
 
 const SearchRequest = () => {
     let navigate = useNavigate();

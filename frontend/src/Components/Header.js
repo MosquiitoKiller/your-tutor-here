@@ -1,6 +1,7 @@
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {Container, Nav, Navbar} from "react-bootstrap";
 function Header(){
+    const navigate = useNavigate();
     return(
         <header className='header' style={{backgroundColor: "lightgoldenrodyellow"}}>
             <Navbar collapseOnSelect expand="lg">
@@ -9,7 +10,7 @@ function Header(){
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
-                            <Nav.Link as={NavLink} className="navLink" to="/workers" style={({ isActive }) =>
+                            <Nav.Link as={NavLink} className="navLink" to="/teachers" style={({ isActive }) =>
                                 isActive
                                     ? {
                                         color: '#fff',
@@ -56,7 +57,7 @@ function Header(){
                                         }
                                         : { color: 'green'}}
                                 ><h5>Личный кабинет</h5></Nav.Link>
-                                <Nav.Link as={NavLink} className="navLink" to="/logout" style={({ isActive }) =>
+                                <Nav.Link as={NavLink} className="navLink" onClick= {()=>{localStorage.clear(); navigate("/login")}} to="/logout" style={({ isActive }) =>
                                     isActive
                                         ? {
                                             color: '#fff',

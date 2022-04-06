@@ -12,10 +12,8 @@ public class UserInfo  {
     private int age;
     private String phone;
     private String town;
-    private String dateOfBirth;
     private boolean viber;
     private boolean telegram;
     private boolean whatsApp;
 
 }
-

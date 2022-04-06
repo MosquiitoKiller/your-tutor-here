@@ -1,6 +1,7 @@
 package com.example.yourtutorhere.models;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class TeacherInput {
@@ -13,6 +14,6 @@ public class TeacherInput {
     private String subject;
     private int price;
 
-    private String img;
+    private MultipartFile img;
     private String aboutTeacher;
 }

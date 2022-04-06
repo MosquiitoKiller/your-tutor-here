@@ -17,7 +17,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
     @PostMapping("/register")
-    User signUp(@RequestBody UserInput user) {
+    User signUp(@ModelAttribute UserInput user) {
         return authService.register(user);
     }
     @PostMapping("/login")

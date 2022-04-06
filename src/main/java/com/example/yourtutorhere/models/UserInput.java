@@ -9,7 +9,6 @@ public class UserInput {
     private String firstName;
     private String middleName;
     private String lastName;
-    private String dateOfBirth;
     private String town;
     private String phone;
     private boolean telegram;
