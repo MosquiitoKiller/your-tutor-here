@@ -22,6 +22,10 @@ public class TeacherController {
         return teacherService.getAll();
     }
 
+    @GetMapping("/teacher/info")
+    public Teacher getTeacherInfo(){
+        return  teacherService.getCurrentTeacher();
+    }
     @GetMapping("/teachers/{teacherId}")
     public User getTeacherById(@PathVariable ObjectId teacherId){
         return teacherService.findById(teacherId);

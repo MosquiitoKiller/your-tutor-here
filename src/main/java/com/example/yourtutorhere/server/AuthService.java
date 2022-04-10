@@ -53,7 +53,7 @@ public class AuthService implements UserDetailsService {
                 userInput.isTelegram(),
                 userInput.isWhatsApp());
         User user = new User(userInput.getEmail(),userInput.getPassword(),userInfo);
-
+        System.out.println(userInput.isTeacher());
         if (userInput.isTeacher()){
             Teacher teacher = new Teacher(userInput.getTeacherInput().isLearnInHome(),
                     userInput.getTeacherInput().isLearnInStudent(),
@@ -62,7 +62,9 @@ public class AuthService implements UserDetailsService {
                     userInput.getTeacherInput().getSubject(),
                     userInput.getTeacherInput().getPrice(),
                     cloudinaryService.uploadFile(userInput.getTeacherInput().getImg()),
-                    userInput.getTeacherInput().getAboutTeacher());
+                    userInput.getTeacherInput().getAboutTeacher(),
+                    userInfo);
+            System.out.println(teacher);
             teacherRepository.save(teacher);
             user.setTeacher(teacher);
 

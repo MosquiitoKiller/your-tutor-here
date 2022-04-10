@@ -26,10 +26,11 @@ public class Teacher implements Serializable {
     private String subject;
     private int price;
 
+    private UserInfo userInfo;
     private String img;
     private String aboutTeacher;
 
-    public Teacher(boolean learnInHome, boolean learnInStudent, boolean remote, String education, String subject, int price, String img, String aboutTeacher) {
+    public Teacher(boolean learnInHome, boolean learnInStudent, boolean remote, String education, String subject, int price, String img, String aboutTeacher, UserInfo userInfo) {
         this.learnInHome = learnInHome;
         this.learnInStudent = learnInStudent;
         this.remote = remote;
@@ -38,5 +39,6 @@ public class Teacher implements Serializable {
         this.price = price;
         this.img = img;
         this.aboutTeacher = aboutTeacher;
+        this.userInfo = userInfo;
     }
 }

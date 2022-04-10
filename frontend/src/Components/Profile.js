@@ -58,7 +58,7 @@ function UpdateModalUser(props) {
     const getUser = async () => {
         try {
             let token = JSON.parse(localStorage.getItem("user"));
-            await axios.get("http://localhost:8080/api/auth/user/info",{
+            await axios.get("http://localhost:8080/api/user/info",{
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }}).then((response) => {
@@ -222,6 +222,7 @@ function UpdateModalUser(props) {
 }
 const UserProfile = () => {
     const [user, setUser] = useState("");
+    const [teacher, setTeacher] = useState({});
     const [modalShow, setModalShow] = React.useState(false);
     const [ loading, setLoading] = useState(true)
     const navigate = useNavigate();
@@ -230,7 +231,7 @@ const UserProfile = () => {
         try {
             let token = JSON.parse(localStorage.getItem("user"));
             console.log("dasdsadasd");
-            await axios.get("http://localhost:8080/api/auth/user/info",{
+            await axios.get("http://localhost:8080/api/user/info",{
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }}).then((response) => {
@@ -243,26 +244,103 @@ const UserProfile = () => {
             console.error(err.message);
         }
     };
+    const getTeacher = async () => {
+        console.log("dasdsadasd");
+        try {
+            let token = JSON.parse(localStorage.getItem("user"));
+            console.log("dasdsadasd");
+            await axios.get("http://localhost:8080/api/teacher/info",{
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }}).then((response) => {
+                console.log(response.data);
+                setTeacher(response.data);
+                setLoading(false)
+            })
+        } catch (err) {
+            console.log("dasdsadasd");
+            console.error(err.message);
+        }
+    };
     useEffect(() => {
         getUser();
+        getTeacher();
     }, []);
     return(
         <Container  className="mb-3 mt-3">
             <Row  className="mb-3 mt-3">
                 <Col>
-                    <Card className="d-flex flex-column align-items-center text-center login">
-                        {loading ? <Spinner animation="border" style={{ width: '300', height: '300' }}/> :  <Image src={user.avatarUrl} roundedCircle width={300} height={300}/>}
+                    <Card className="d-flex flex-column align-items-center login">
+                        <h1 className="text-center">Карточка учителя</h1>
+                        {loading ? <Spinner animation="border" style={{ width: '300', height: '300' }}/> :  <Image src={teacher.img} roundedCircle width={300} height={300}/>}
                         <Card.Body>
                             <Stack gap={1}>
-                                <Row>
-                                    <Col>
-                                        <Button variant="info" style={{height: "100%"}}>Создать резюме</Button>
-                                    </Col>
-                                    <Col>
-                                        <Button variant="dark" onClick={() => navigate("/new_task")}>Создать задание</Button>
-                                    </Col>
+                                <Row className="mb-2">
+                                    <Form.Label>Отметьте варианты проведения ваших занятий</Form.Label>
+                                    <Form.Group as={Col} controlId="formGridEmail">
+                                        <Form.Check
+                                            label="Дома"
+                                            checked={teacher.learnInHome}
+                                            disabled
+                                        />
+                                    </Form.Group>
+
+                                    <Form.Group as={Col} controlId="formGridPassword">
+                                        <Form.Check
+                                            label="У ученика"
+                                            checked={teacher.learnInStudent}
+                                            disabled
+                                        />
+                                    </Form.Group>
+
+                                    <Form.Group as={Col} controlId="formGridPassword">
+                                        <Form.Check
+                                            label="Удаленно"
+                                            checked={teacher.remote}
+                                            disabled
+                                        />
+                                    </Form.Group>
                                 </Row>
-                                <Button variant="danger">Выйти</Button>
+
+                                <Row className="mb-2">
+                                    <Form.Group as={Col} controlId="formGridEmail">
+                                        <Form.Label >Предмет, который преподаете</Form.Label>
+                                        <Form.Control type="text"
+                                                      placeholder="Название предмета"
+                                                      value={teacher.subject }
+                                                      disabled />
+                                    </Form.Group>
+                                </Row>
+                                <Row className="mb-2">
+                                    <Form.Group as={Col} controlId="formGridEmail">
+                                        <Form.Label >Цена занятий с вами</Form.Label>
+                                        <Form.Control type="number"
+                                                      placeholder="Введите цену в рублях"
+                                                      value={teacher.price }
+                                                      disabled />
+                                    </Form.Group>
+                                </Row>
+                                <Row className="mb-2">
+                                    <Form.Group as={Col} controlId="formGridEmail">
+                                        <Form.Label >Ваше образование</Form.Label>
+                                        <Form.Control type="text" as="textarea"
+                                                      placeholder="Введите ваше образование"
+                                                      rows="3"
+                                                      value={teacher.education}
+                                                      disabled/>
+                                    </Form.Group>
+                                </Row>
+                                <Row className="mb-2">
+                                    <Form.Group as={Col} controlId="formGridEmail">
+                                        <Form.Label >Немного о вас</Form.Label>
+                                        <Form.Control type="text" as="textarea"
+                                                      placeholder="Введите информацию о себе"
+                                                      rows="5"
+                                                      value={teacher.aboutTeacher }
+                                                      disabled />
+                                    </Form.Group>
+                                </Row>
+                                <Button variant="dark" className="justify-content-center" onClick={() => setModalShow(true)}>Редактировать</Button>
                             </Stack>
                         </Card.Body>
                     </Card>
@@ -292,13 +370,39 @@ const UserProfile = () => {
                                 </InputGroup>
                                 <Form.Label htmlFor="basic-url4">Город проживания</Form.Label>
                                 <InputGroup className="mb-3">
-                                    <FormControl id="basic-url4" aria-describedby="basic-addon3" placeholder="Ваш город" value = {user.city} disabled/>
+                                    <FormControl id="basic-url4" aria-describedby="basic-addon3" placeholder="Ваш город" value = {user.town} disabled/>
                                 </InputGroup>
                                 <Form.Label htmlFor="basic-url2">Номер телефона</Form.Label>
                                 <InputGroup className="mb-3">
                                     <FormControl id="basic-url2" aria-describedby="basic-addon3" placeholder="Ваш номер телефона" value = {user.phone} disabled/>
                                 </InputGroup>
                             </Col>
+                        </Row>
+                        <Row className="mb-2">
+                            <Form.Label>Отметьте варианты связи с вами</Form.Label>
+                            <Form.Group as={Col} controlId="formGridEmail">
+                                <Form.Check
+                                    label="telegram"
+                                    checked={user.telegram}
+                                    disabled
+                                />
+                            </Form.Group>
+
+                            <Form.Group as={Col} controlId="formGridPassword">
+                                <Form.Check
+                                    label="whatsApp"
+                                    checked={user.whatsApp}
+                                    disabled
+                                />
+                            </Form.Group>
+
+                            <Form.Group as={Col} controlId="formGridPassword">
+                                <Form.Check
+                                    label="viber"
+                                    checked={user.viber}
+                                    disabled
+                                />
+                            </Form.Group>
                         </Row>
                         <Row>
                             <Button variant="dark" className="justify-content-center" onClick={() => setModalShow(true)}>Редактировать</Button>
@@ -308,12 +412,6 @@ const UserProfile = () => {
                             onHide={() => setModalShow(false)}/>
                     </Card>
                 </Col>
-            </Row>
-            <Row>
-                <h1 className="text-center">Ваши заявки</h1>
-            </Row>
-            <Row>
-                <h1 className="text-center">Ваши задания</h1>
             </Row>
         </Container>
     )

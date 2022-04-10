@@ -18,6 +18,7 @@ public class AuthController {
     private AuthService authService;
     @PostMapping("/register")
     User signUp(@ModelAttribute UserInput user) {
+        System.out.println(user);
         return authService.register(user);
     }
     @PostMapping("/login")
