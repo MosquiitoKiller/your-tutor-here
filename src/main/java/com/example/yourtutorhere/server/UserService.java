@@ -1,6 +1,8 @@
 package com.example.yourtutorhere.server;
 
 import com.example.yourtutorhere.entities.User;
+import com.example.yourtutorhere.entities.UserInfo;
+import com.example.yourtutorhere.models.UserInput;
 import com.example.yourtutorhere.repository.TeacherRepository;
 import com.example.yourtutorhere.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,23 @@ public class UserService  {
 
     public List<User> allUsers() {
         return userRepository.findAll();
+    }
+
+    public User updateUser(UserInput userInput){
+        User user = getCurrentUser();
+        UserInfo userInfo = new UserInfo(userInput.getFirstName(),
+                userInput.getMiddleName(),
+                userInput.getLastName(),
+                userInput.getAge(),
+                userInput.getPhone(),
+                userInput.getTown(),
+                userInput.isViber(),
+                userInput.isTelegram(),
+                userInput.isWhatsApp());
+        user.setUserInfo(userInfo);
+        String cryptedPassword = bCryptPasswordEncoder.encode(userInput.getPassword());
+        user.setPassword(cryptedPassword);
+        return userRepository.save(user);
     }
 
     public User getCurrentUser(){

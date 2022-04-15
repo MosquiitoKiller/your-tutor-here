@@ -2,12 +2,11 @@ package com.example.yourtutorhere.controller;
 
 import com.example.yourtutorhere.entities.Teacher;
 import com.example.yourtutorhere.entities.User;
+import com.example.yourtutorhere.models.TeacherInput;
 import com.example.yourtutorhere.server.TeacherService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,6 +24,10 @@ public class TeacherController {
     @GetMapping("/teacher/info")
     public Teacher getTeacherInfo(){
         return  teacherService.getCurrentTeacher();
+    }
+    @PostMapping("/teacher/info")
+    public Teacher setTeacherInfo(@ModelAttribute TeacherInput teacherInput){
+        return  teacherService.updateTeacher(teacherInput);
     }
     @GetMapping("/teachers/{teacherId}")
     public User getTeacherById(@PathVariable ObjectId teacherId){

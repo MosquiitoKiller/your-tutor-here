@@ -37,9 +37,9 @@ function Registartion(){
                     phone: form.phone,
                     email: form.email,
                     town: form.city,
-                    telegram: true,
-                    viber: true,
-                    whatsApp:true,
+                    telegram: form.telegram,
+                    viber: form.viber,
+                    whatsApp: form.whatsApp,
                     teacher: form.teacher,
                     teacherInput:{
                         learnInHome: form.learnInHome ,
@@ -206,19 +206,19 @@ function Registartion(){
                                         <Form.Group as={Col} controlId="formGridEmail">
                                             <Form.Check
                                                 label="telegram"
-                                                onChange={ e => setField('telegram', e.target.value) }  />
+                                                onChange={ e => setField('telegram', e.target.checked) }  />
                                         </Form.Group>
 
                                         <Form.Group as={Col} controlId="formGridPassword">
                                             <Form.Check
                                                 label="whatsApp"
-                                                onChange={ e => setField('whatsApp', e.target.value) }  />
+                                                onChange={ e => setField('whatsApp', e.target.checked) }  />
                                         </Form.Group>
 
                                         <Form.Group as={Col} controlId="formGridPassword">
                                             <Form.Check
                                                 label="viber"
-                                                onChange={ e => setField('viber', e.target.value) }  />
+                                                onChange={ e => setField('viber', e.target.checked) }  />
                                         </Form.Group>
                                     </Row>
                                     <Tab.Container id="left-tabs-example" defaultActiveKey="first">
